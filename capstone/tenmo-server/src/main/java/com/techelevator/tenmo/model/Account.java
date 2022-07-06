@@ -14,6 +14,10 @@ public class Account {
         this.balance = balance;
     }
 
+    public Account() {
+        
+    }
+
     public int getAccountID() {
         return accountID;
     }
@@ -26,4 +30,12 @@ public class Account {
         return balance;
     }
 
+    public void setUserID(int userID) {
+    }
+
+    public void setAccountID(int accountID) {
+    }
+
+    public void add(Account account) {
+    }
 }
