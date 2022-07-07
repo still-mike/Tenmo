@@ -1,7 +1,6 @@
 package com.techelevator.tenmo.dao;
 
 import com.techelevator.tenmo.model.Account;
-import com.techelevator.tenmo.model.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
@@ -31,23 +30,53 @@ public class JdbcAccountDao implements AccountDao{
 
     @Override
     public Account findByAccountID(int id) {
-        return null;
+        Account accountById = null;
+        String sql = "SELECT * FROM account WHERE account_id = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+        if (results.next()) {
+            accountById = mapRowToAccount(results);
+        }
+        return accountById;
     }
 
     @Override
-    public int findIdByUserID(int id) {
-        return 0;
+    public Account findIdByUserID(int id) {
+        Account accountByUserId = null;
+        String sql = "SELECT a.user_id * " +
+                     "FROM account.a " +
+                     "JOIN ts.tenmo_user " +
+                     "ON a.user_id = ts.user_id " +
+                     "WHERE user_id = ? ";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+        if (results.next()) {
+            accountByUserId = mapRowToAccount(results);
+        }
+        return accountByUserId;
     }
 
+//    @Override
+//    public Account get(BigDecimal balance) {
+//        return null;
+//    }
+
     @Override
-    public Account get(BigDecimal balance) {
-        return null;
+    public BigDecimal getBalance(BigDecimal balance) {  //type Account? BigDecimal?
+        Account accountBalance = null;
+        String sql = "SELECT balance " +
+                     "FROM account " +
+                     "WHERE account_id = ? ";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, balance);
+        if (results.next()) {
+            accountBalance = mapRowToAccount(results);
+        }
+        return balance;
     }
 
     private Account mapRowToAccount(SqlRowSet rs) {
         Account account = new Account();
         account.setUserID(rs.getInt("user_id"));
-        account.setAccountID(rs.getInt("username"));
+        account.setAccountID(rs.getInt("account_id"));
+        account.setBalance(rs.getBigDecimal("balance"));
         return account;
     }
 

@@ -38,4 +38,7 @@ public class Account {
 
     public void add(Account account) {
     }
+
+    public void setBalance(BigDecimal balance) {
+    }
 }
