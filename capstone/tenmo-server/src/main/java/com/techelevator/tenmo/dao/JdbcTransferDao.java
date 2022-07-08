@@ -74,22 +74,60 @@ public class JdbcTransferDao implements TransferDao {
 
     @Override
     public Transfer findByTransferStatusDesc(String status) {
-        return null;
+        Transfer transfer = null;
+        String sql = "SELECT ts.transfer_status_desc " +
+                     "FROM transfer_status ts " +
+                     "JOIN transfer t " +
+                     "ON t.transfer_status_id = ts.transfer_status_desc " +
+                     "WHERE t.transfer_status_id = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, status);
+        if(results.next()) {
+            transfer = mapRowToTransfer(results);
+        }
+        return transfer;
     }
 
     @Override
     public Transfer findByAccountFrom(int id) {
-        return null;
+        Transfer transfer = null;
+        String sql = "SELECT t.account_from " +
+                     "FROM transfer t " +
+                     "JOIN account a " +
+                     "ON t.account_from = a.account_id " +
+                     "WHERE t.account_from = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+        if(results.next()) {
+            transfer = mapRowToTransfer(results);
+        }
+        return transfer;
     }
+
 
     @Override
     public Transfer findByAccountTo(int id) {
-        return null;
+        Transfer transfer = null;
+        String sql = "SELECT t.account_to " +
+                     "FROM transfer t " +
+                     "JOIN account a " +
+                     "ON t.account_from = a.account_id " +
+                     "WHERE t.account_from = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+        if(results.next()) {
+            transfer = mapRowToTransfer(results);
+        }
+        return transfer;
     }
 
     @Override
     public Transfer getTransferAmount(BigDecimal transferBalance) {
-        return null;
+        Transfer transfer = null;
+        String sql = "SELECT amount FROM transfer;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, transferBalance);
+        if(results.next()) {
+            transfer = mapRowToTransfer(results);
+        }
+        return transfer;
+
     }
 
     private Transfer mapRowToTransfer(SqlRowSet rs) {
