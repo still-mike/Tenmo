@@ -1,5 +1,6 @@
 package com.techelevator.tenmo.dao;
 
+import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.model.TransferDTO;
 
 import java.math.BigDecimal;
@@ -23,7 +24,5 @@ public interface TransferDao {
 
     TransferDTO getTransferAmount(BigDecimal transferBalance);
 
-
-
-
+    Transfer createTransfer();
 }

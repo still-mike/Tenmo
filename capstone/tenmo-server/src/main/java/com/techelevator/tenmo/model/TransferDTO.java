@@ -15,7 +15,7 @@ public class TransferDTO {
     private BigDecimal amount;
 
 
-    public TransferDTO(int accountID, int accountFrom, int accountTo, BigDecimal amount, String transferStatusTypeDesc) {
+    public TransferDTO() {
 //        this.transferID = transferID;
 //        this.transferStatusID = transferStatusID;
 //        this.transferStatusID = transferStatusID;

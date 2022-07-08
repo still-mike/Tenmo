@@ -1,13 +1,16 @@
 package com.techelevator.tenmo.dao;
 
+import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.model.TransferDTO;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class JdbcTransferDao implements TransferDao {
 
     private JdbcTemplate jdbcTemplate;
@@ -18,13 +21,16 @@ public class JdbcTransferDao implements TransferDao {
 
     @Override
     public List<TransferDTO> findAll() {
-        List<TransferDTO> transfers = new ArrayList<>();
-        String sql = "SELECT transfer_id, transfer_type_id, transfer_ status_id, account_from, account_to, amount FROM transfer;";
+        List<TransferDTO> accountToUsers = new ArrayList<>();
+        String sql = "SELECT t.account_to, tu.username " +
+                "FROM transfer t " +
+                "JOIN account a ON t.account_to = a.account_id " +
+                "JOIN tenmo_user tu ON tu.user_id = a.user_id; ";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
-            transfers.add(mapRowToTransfer(results));
+            accountToUsers.add(mapRowToTransfer(results));
         }
-        return transfers;
+        return accountToUsers;
 
     }
 
@@ -127,6 +133,11 @@ public class JdbcTransferDao implements TransferDao {
         }
         return transfer;
 
+    }
+
+    @Override
+    public Transfer createTransfer() {
+        return null;
     }
 
     private TransferDTO mapRowToTransfer(SqlRowSet rs) {
