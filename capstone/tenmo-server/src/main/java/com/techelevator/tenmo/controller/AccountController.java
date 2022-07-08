@@ -17,13 +17,15 @@ import java.util.List;
 @RestController
 public class AccountController {
 
-//    private final TokenProvider tokenProvider;
+//    private final String user;
+    //    private final TokenProvider tokenProvider;
 //    private final AuthenticationManagerBuilder authenticationManagerBuilder;
     public AccountDao accountDao;
 
     public AccountController(AccountDao accountDao) {
         this.accountDao = accountDao;
-    }
+//        this.user = user;
+        }
 
 //    private AccountDao accountDao;
 
@@ -52,10 +54,9 @@ public class AccountController {
         return accountDao.findIdByUserID(id);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    @RequestMapping(path = "/account/balance/{id}", method = RequestMethod.GET)
-    public BigDecimal getBalance(@PathVariable BigDecimal balance) {
-        return accountDao.getBalance(balance);
+    @RequestMapping(path = "/account/balance", method = RequestMethod.GET)
+    public BigDecimal getBalance(Principal principal) {
+        return accountDao.getBalance(principal.getName());
     }
 
     @RequestMapping(path = "")

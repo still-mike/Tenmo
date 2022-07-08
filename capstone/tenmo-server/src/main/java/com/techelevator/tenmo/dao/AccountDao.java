@@ -17,7 +17,7 @@ public interface AccountDao {
 
     Account findBalanceIdByUserID(int id);
 
-    BigDecimal getBalance(BigDecimal balance);
+    BigDecimal getBalance(String balance);
 
     BigDecimal getAllBalance(BigDecimal balance);
 

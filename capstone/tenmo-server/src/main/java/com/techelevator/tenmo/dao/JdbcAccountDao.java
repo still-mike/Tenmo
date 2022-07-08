@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class JdbcAccountDao implements AccountDao{
+public class JdbcAccountDao implements AccountDao {
 
     private JdbcTemplate jdbcTemplate;
 
@@ -24,7 +24,7 @@ public class JdbcAccountDao implements AccountDao{
         List<Account> accounts = new ArrayList<>();
         String sql = "SELECT account_id, user_id, balance FROM account;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
-        while(results.next()){
+        while (results.next()) {
             accounts.add(mapRowToAccount(results));
         }
         return accounts;
@@ -45,10 +45,10 @@ public class JdbcAccountDao implements AccountDao{
     public Account findIdByUserID(int id) {
         Account accountByUserId = null;
         String sql = "SELECT a.user_id " +
-                     "FROM account a " +
-                     "JOIN tenmo_user ts " +
-                     "ON a.user_id = ts.user_id " +
-                     "WHERE a.user_id = ? ";
+                "FROM account a " +
+                "JOIN tenmo_user ts " +
+                "ON a.user_id = ts.user_id " +
+                "WHERE a.user_id = ? ";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
         if (results.next()) {
             accountByUserId = mapRowToAccount(results);
@@ -60,8 +60,8 @@ public class JdbcAccountDao implements AccountDao{
     public Integer getByUserID(int id) {
         Account account = null;
         String sql = "SELECT account_id " +
-                    "FROM account " +
-                    "WHERE user_id = ?;";
+                "FROM account " +
+                "WHERE user_id = ?;";
         Integer getAccount;
         getAccount = jdbcTemplate.queryForObject(sql, Integer.class, id);
         return getAccount;
@@ -71,10 +71,10 @@ public class JdbcAccountDao implements AccountDao{
     public Account findBalanceIdByUserID(int id) {
         Account balanceByUserId = null;
         String sql = "SELECT a.balance " +
-                    "FROM account a " +
-                    "JOIN tenmo_user ts " +
-                    "ON a.user_id = ts.user_id " +
-                    "WHERE a.user_id = ? ";
+                "FROM account a " +
+                "JOIN tenmo_user ts " +
+                "ON a.user_id = ts.user_id " +
+                "WHERE a.user_id = ? ";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
         if (results.next()) {
             balanceByUserId = mapRowToAccount(results);
@@ -91,21 +91,22 @@ public class JdbcAccountDao implements AccountDao{
 //        return null;
 //    }
 
-    public BigDecimal getBalance(BigDecimal balance) {  //type Account? BigDecimal?
-        Account accountBalance = null;
-        String sql = "SELECT balance " +
-                     "FROM account " +
-                     "WHERE account_id = ? ";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, balance);
-        if (results.next()) {
-            accountBalance = mapRowToAccount(results);
-        }
-        return balance;
+    public BigDecimal getBalance(String user) {  //type Account? BigDecimal?
+        BigDecimal accountBalance;
+        String sql = "SELECT a.balance " +
+                "FROM account a " +
+                "JOIN tenmo_user ts " +
+                "ON a.user_id = ts.user_id " +
+                "WHERE ts.username = ? ";
+        accountBalance = jdbcTemplate.queryForObject(sql, BigDecimal.class, user);
+        return accountBalance;
     }
+
+
     public BigDecimal getAllBalance(BigDecimal balance) {
         Account account = null;
         String sql = "SELECT balance " +
-                    "FROM account;";
+                "FROM account;";
         BigDecimal balanceAmount;
         balanceAmount = jdbcTemplate.queryForObject(sql, BigDecimal.class, balance);
         return balance;
