@@ -33,14 +33,17 @@ public class Account {
     }
 
     public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public void setAccountID(int accountID) {
+        this.accountID = accountID;
     }
 
-    public void add(Account account) {
-    }
+//    public void add(Account account) {
+//    }
 
     public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 }

@@ -15,5 +15,5 @@ public interface AccountDao {
 
 //    Account get(BigDecimal balance);
 
-    BigDecimal getBalance(BigDecimal balance);
+    int getBalance(int balance);
 }

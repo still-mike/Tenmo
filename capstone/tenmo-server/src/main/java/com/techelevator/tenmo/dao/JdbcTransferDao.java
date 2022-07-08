@@ -23,26 +23,53 @@ public class JdbcTransferDao implements TransferDao {
         String sql = "SELECT transfer_id, transfer_type_id, transfer_ status_id, account_from, account_to, amount FROM transfer;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
-//            Account account = mapRowToAccount(results);
-//            account.add(account);
+            transfers.add(mapRowToTransfer(results));
         }
-        return null;
+        return transfers;
 
     }
 
     @Override
     public Transfer findByTransferID(int id) {
-        return null;
+        Transfer transferByTransferID = null;
+        String sql = "SELECT transfer_id " +
+                "FROM transfer;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+        if (results.next()) {
+            transferByTransferID = mapRowToTransfer(results);
+        }
+        return transferByTransferID;
     }
+
 
     @Override
     public Transfer findByTransferType(int id) {
-        return null;
+        Transfer transfer = null;
+        String sql = "SELECT t.transfer_type_id " +
+                    "FROM transfer t " +
+                    "JOIN transfer_type ty " +
+                    "ON t.transfer_type_id = ty.transfer_type_id " +
+                    "WHERE transfer_type_id = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+        if (results.next()) {
+            transfer = mapRowToTransfer(results);
+        }
+        return transfer;
     }
 
     @Override
     public Transfer findByStatusId(int id) {
-        return null;
+        Transfer transfer = null;
+        String sql = "SELECT t.transfer_status_id " +
+                    "FROM transfer t " +
+                    "JOIN transfer_status ts " +
+                    "ON t.transfer_status_id = ts.transfer_status_id " +
+                    "WHERE t.transfer_status_id = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+        if(results.next()) {
+            transfer = mapRowToTransfer(results);
+        }
+        return transfer;
     }
 
     @Override
@@ -65,18 +92,17 @@ public class JdbcTransferDao implements TransferDao {
         return null;
     }
 
-//    private Account mapRowToTransfer(SqlRowSet rs) {
-//        Transfer transfer = new Transfer();
-//        transfer.setTransferID(rs.getInt("transfer_id"));
-//        transfer.setTransferTypeID(rs.getInt("transfer_type_id"));
-//        transfer.setTransferStatusID(rs.getInt("transfer_status_id"));
-//        transfer.setTransferStatusDesc(rs.getString("transfer_status_desc"));
+    private Transfer mapRowToTransfer(SqlRowSet rs) {
+        Transfer transfer = new Transfer();
+        transfer.setTransferID(rs.getInt("transfer_id"));
+        transfer.setTransferTypeID(rs.getInt("transfer_type_id"));
+        transfer.setTransferStatusID(rs.getInt("transfer_status_id"));
+        transfer.setAccountFrom(rs.getInt("account_from"));
+        transfer.setAmount(rs.getBigDecimal("amount"));
+        transfer.setTransferStatusDesc(rs.getString("transfer_status_desc"));
+        return transfer;
 
+    }
 
-//        account.setAccountID(rs.getInt("account_id"));
-//        account.setBalance(rs.getBigDecimal("balance"));
-//        return account;
-//    }
-
-//    }
 }
+
