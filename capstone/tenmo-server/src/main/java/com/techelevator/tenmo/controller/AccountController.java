@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 
@@ -41,16 +42,18 @@ public class AccountController {
         return accountDao.findByAccountID(id);
     }
 
-    @RequestMapping(path = "/account/user/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/user/{id}", method = RequestMethod.GET)
     public Account getByUserId(@PathVariable int id) {
         return accountDao.findIdByUserID(id);
     }
+
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @RequestMapping(path = "/account/balance/{id}", method = RequestMethod.GET)
-    public int getBalance(@PathVariable int balance) {
+    public BigDecimal getBalance(@PathVariable BigDecimal balance) {
         return accountDao.getBalance(balance);
     }
-    @RequestMapping(path = "/whoami")
+
+    @RequestMapping(path = "")
     public String whoAmI(Principal principal) {
         return principal.getName();
     }

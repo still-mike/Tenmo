@@ -44,11 +44,11 @@ public class JdbcAccountDao implements AccountDao{
     @Override
     public Account findIdByUserID(int id) {
         Account accountByUserId = null;
-        String sql = "SELECT a.user_id * " +
-                     "FROM account.a " +
+        String sql = "SELECT a.user_id " +
+                     "FROM account a " +
                      "JOIN tenmo_user ts " +
                      "ON a.user_id = ts.user_id " +
-                     "WHERE user_id = ? ";
+                     "WHERE a.user_id = ? ";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
         if (results.next()) {
             accountByUserId = mapRowToAccount(results);
@@ -56,6 +56,20 @@ public class JdbcAccountDao implements AccountDao{
         return accountByUserId;
     }
 
+    @Override
+    public Account findBalanceIdByUserID(int id) {
+        Account balanceByUserId = null;
+        String sql = "SELECT a.balance " +
+                    "FROM account a " +
+                    "JOIN tenmo_user ts " +
+                    "ON a.user_id = ts.user_id " +
+                    "WHERE a.user_id = ? ";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+        if (results.next()) {
+            balanceByUserId = mapRowToAccount(results);
+        }
+        return balanceByUserId;
+    }
 //    @Override
 //    public BigDecimal getBalance(BigDecimal balance) {
 //        return null;
@@ -66,7 +80,7 @@ public class JdbcAccountDao implements AccountDao{
 //        return null;
 //    }
 
-    public int getBalance(int balance) {  //type Account? BigDecimal?
+    public BigDecimal getBalance(BigDecimal balance) {  //type Account? BigDecimal?
         Account accountBalance = null;
         String sql = "SELECT balance " +
                      "FROM account " +
@@ -77,6 +91,15 @@ public class JdbcAccountDao implements AccountDao{
         }
         return balance;
     }
+    public BigDecimal getAllBalance(BigDecimal balance) {
+        Account account = null;
+        String sql = "SELECT balance " +
+                    "FROM account;";
+        BigDecimal balanceAmount;
+        balanceAmount = jdbcTemplate.queryForObject(sql, BigDecimal.class, balance);
+        return balance;
+    }
+
 
     private Account mapRowToAccount(SqlRowSet rs) {
         Account account = new Account();

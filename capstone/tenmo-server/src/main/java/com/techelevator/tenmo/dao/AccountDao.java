@@ -13,7 +13,7 @@ public interface AccountDao {
 
     Account findIdByUserID(int id);
 
-//    Account get(BigDecimal balance);
+    Account findBalanceIdByUserID(int id);
 
-    int getBalance(int balance);
+    BigDecimal getBalance(BigDecimal balance);
 }
