@@ -111,6 +111,16 @@ public class JdbcAccountDao implements AccountDao {
         balanceAmount = jdbcTemplate.queryForObject(sql, BigDecimal.class, balance);
         return balance;
     }
+
+    @Override
+    public Account removeFromAccount(BigDecimal amount) {
+        return null;
+    }
+
+    @Override
+    public Account addToAccount(BigDecimal amount) {
+        return null;
+    }
 //
 //    @Override
 //    public List<Account> getAllBalance() {
