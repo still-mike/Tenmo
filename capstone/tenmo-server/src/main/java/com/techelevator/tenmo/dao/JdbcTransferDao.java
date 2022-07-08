@@ -2,6 +2,7 @@ package com.techelevator.tenmo.dao;
 
 import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.model.TransferDTO;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -128,7 +129,7 @@ public class JdbcTransferDao implements TransferDao {
         TransferDTO transfer = null;
         String sql = "SELECT amount FROM transfer;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, transferBalance);
-        if(results.next()) {
+        if (results.next()) {
             transfer = mapRowToTransfer(results);
         }
         return transfer;
@@ -136,9 +137,13 @@ public class JdbcTransferDao implements TransferDao {
     }
 
     @Override
-    public Transfer createTransfer() {
-        return null;
+    public Integer createTransfer(int status_id, int account_from, int account_to, BigDecimal amount) {
+        String sql = "INSERT INTO transfer (transfer_status_id, transfer_type_id, account_from, account_to, amount) " +
+                "VALUES (2, 2, ?, ?, ?)" +
+                "RETURNING transfer_id;";
+        return jdbcTemplate.queryForObject(sql, Integer.class, account_from, account_to, amount);
     }
+
 
     private TransferDTO mapRowToTransfer(SqlRowSet rs) {
         TransferDTO transfer = new TransferDTO();

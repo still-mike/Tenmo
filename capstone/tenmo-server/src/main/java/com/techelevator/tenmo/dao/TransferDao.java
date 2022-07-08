@@ -24,5 +24,7 @@ public interface TransferDao {
 
     TransferDTO getTransferAmount(BigDecimal transferBalance);
 
-    Transfer createTransfer();
+    Integer createTransfer(int status_id, int account_from, int account_to, BigDecimal amount);
+
+//    Transfer createTransfer();
 }
