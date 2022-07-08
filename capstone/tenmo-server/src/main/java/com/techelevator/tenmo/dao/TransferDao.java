@@ -1,28 +1,27 @@
 package com.techelevator.tenmo.dao;
 
-import com.techelevator.tenmo.model.Account;
-import com.techelevator.tenmo.model.Transfer;
+import com.techelevator.tenmo.model.TransferDTO;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 public interface TransferDao {
 
-    List<Transfer> findAll();
+    List<TransferDTO> findAll();
 
-    Transfer findByTransferID(int id);
+    TransferDTO findByTransferID(int id);
 
-    Transfer findByTransferType(int id);
+    TransferDTO findByTransferType(int id);
 
-    Transfer findByStatusId(int id);
+    TransferDTO findByStatusId(int id);
 
-    Transfer findByTransferStatusDesc(String status);
+    TransferDTO findByTransferStatusDesc(String status);
 
-    Transfer findByAccountFrom(int id);
+    TransferDTO findByAccountFrom(int id);
 
-    Transfer findByAccountTo(int id);
+    TransferDTO findByAccountTo(int id);
 
-    Transfer getTransferAmount(BigDecimal transferBalance);
+    TransferDTO getTransferAmount(BigDecimal transferBalance);
 
 
 

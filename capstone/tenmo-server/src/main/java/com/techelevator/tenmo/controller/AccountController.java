@@ -27,13 +27,6 @@ public class AccountController {
 //        this.user = user;
         }
 
-//    private AccountDao accountDao;
-
-//    public AccountController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder) {
-//        this.tokenProvider = tokenProvider;
-//        this.authenticationManagerBuilder = authenticationManagerBuilder;
-//    }
-
     @RequestMapping(path = "/account", method = RequestMethod.GET)
     public List<Account> findAll() {
         return accountDao.findAll();
