@@ -21,8 +21,9 @@ public interface AccountDao {
 
     BigDecimal getAllBalance(BigDecimal balance);
 
-    Account removeFromAccount(BigDecimal amount);
-    Account addToAccount(BigDecimal amount);
+    int removeFromAccount(Account amount);
+
+    int addToAccount(Account amount);
 
 //    List<Account> getAllBalance();
 }

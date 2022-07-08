@@ -40,6 +40,10 @@ public class Account {
         this.accountID = accountID;
     }
 
+//    public Account removeFromAccount(Account amount) {
+//        this.
+//    }
+
 //    public void add(Account account) {
 //    }
 

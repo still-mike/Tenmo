@@ -34,7 +34,8 @@ public class TransferController {
     @RequestMapping(path = "/transfers", method = RequestMethod.POST)
     @Transactional
     public Integer createTransfer(@Valid @RequestBody Transfer transfer){
-        
+        accountDao.removeFromAccount(accountDao.getBalance());
+        accountDao.addToAccount(transfer.getAmount())
         return transferDao.createTransfer(transfer.getTransferStatusID(), transfer.getAccountFrom(), transfer.getAccountTo(), transfer.getAmount());
     }
 
