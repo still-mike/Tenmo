@@ -114,21 +114,21 @@ public class JdbcAccountDao implements AccountDao {
 
 
     @Override
-    public int removeFromAccount(Account amountToRemove) {
+    public int removeFromAccount(BigDecimal amount, int accountID) {
         Account account = null;
         String sql = "UPDATE account " +
-                     "SET balance = ? " +
+                     "SET balance = balance - ? " +
                      "WHERE account_id = ?;";
-        return jdbcTemplate.update(sql, amountToRemove.getBalance(), amountToRemove.getAccountID());
+        return jdbcTemplate.update(sql, amount, accountID);
     }
 
     @Override
-    public int addToAccount(Account amountToAdd) {
+    public int addToAccount(BigDecimal amount, int accountID) {
         Account account = null;
         String sql = "UPDATE account " +
-                     "SET balance + ? " +
+                     "SET balance = balance + ? " +
                      "WHERE account_id = ?;";
-        return jdbcTemplate.update(sql, amountToAdd.getBalance(), amountToAdd.getAccountID());
+        return jdbcTemplate.update(sql, amount, accountID);
     }
 //
 //    @Override
