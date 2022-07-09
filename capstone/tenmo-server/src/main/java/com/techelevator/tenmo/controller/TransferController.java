@@ -2,6 +2,7 @@ package com.techelevator.tenmo.controller;
 
 
 import Exceptions.InsufficientFundsException;
+import Exceptions.TransfersToAccountException;
 import com.techelevator.tenmo.dao.AccountDao;
 import com.techelevator.tenmo.dao.TransferDao;
 import com.techelevator.tenmo.dao.UserDao;
@@ -40,11 +41,17 @@ public class TransferController {
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/transfers", method = RequestMethod.POST)
     @Transactional
-    public Integer createTransfer(@Valid @RequestBody Transfer transfer) throws InsufficientFundsException {
+    public Integer createTransfer(@Valid @RequestBody Transfer transfer) throws InsufficientFundsException, TransfersToAccountException {
         accountDao.removeFromAccount(transfer.getAmount(), transfer.getAccountFrom());
         accountDao.addToAccount(transfer.getAmount(), transfer.getAccountTo());
-        if (accountDao.getBalance().compareTo(transfer.getAmount()) < 0) {
+        if (accountDao.getBalance().compareTo(transfer.getAmount()) <= 0) {
             throw new InsufficientFundsException();
+        }
+        else if (accountDao.getBalance(transfer.getAmount()) > accountDao.getBalance(transfer.getAccountFrom()) {
+            throw new InsufficientFundsException();
+        }
+        else if (accountDao.getByUserID(transfer.getAccountTo()) == accountDao.getByUserID(transfer.getAccountFrom())){
+            throw new TransfersToAccountException();
         }
         return transferDao.createTransfer(transfer.getTransferStatusID(), transfer.getAccountFrom(), transfer.getAccountTo(), transfer.getAmount());
     }
@@ -57,8 +64,6 @@ public class TransferController {
         return transferDao.findByAccountID(account.getAccountID());
     }
 
-//    @RequestMapping(path = "/transfers", method = RequestMethod.GET)
-//    public List<Transfer>
 
 
 }

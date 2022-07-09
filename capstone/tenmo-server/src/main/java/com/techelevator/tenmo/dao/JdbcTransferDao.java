@@ -104,20 +104,20 @@ public class JdbcTransferDao implements TransferDao {
         return transfer;
     }
 
-    @Override
-    public TransferDTO findByTransferStatusDesc(String status) {
-        TransferDTO transfer = null;
-        String sql = "SELECT ts.transfer_status_desc " +
-                     "FROM transfer_status ts " +
-                     "JOIN transfer t " +
-                     "ON t.transfer_status_id = ts.transfer_status_id " +
-                     "WHERE t.transfer_status_id = ?;";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, status);
-        if(results.next()) {
-            transfer = mapRowToTransfer(results);
-        }
-        return transfer;
-    }
+//    @Override
+//    public TransferDTO findByTransferStatusDesc(String status) {
+//        TransferDTO transfer = null;
+//        String sql = "SELECT ts.transfer_status_desc " +
+//                     "FROM transfer_status ts " +
+//                     "JOIN transfer t " +
+//                     "ON t.transfer_status_id = ts.transfer_status_id " +
+//                     "WHERE t.transfer_status_id = ?;";
+//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, status);
+//        if(results.next()) {
+//            transfer = mapRowToTransfer(results);
+//        }
+//        return transfer;
+//    }
 
 //    @Override
 //    public TransferDTO findByAccountFrom(int id) {

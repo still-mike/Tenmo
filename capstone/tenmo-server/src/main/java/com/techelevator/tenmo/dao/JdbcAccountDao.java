@@ -81,15 +81,6 @@ public class JdbcAccountDao implements AccountDao {
         }
         return balanceByUserId;
     }
-//    @Override
-//    public BigDecimal getBalance(BigDecimal balance) {
-//        return null;
-//    }
-
-//    @Override
-//    public Account get(BigDecimal balance) {
-//        return null;
-//    }
 
     public BigDecimal getBalance(String user) {  //type Account? BigDecimal?
         BigDecimal accountBalance;
