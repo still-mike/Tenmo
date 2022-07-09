@@ -22,35 +22,20 @@ public class Transfer {
         this.amount = amount;
     }
 
-    public int getAccountFrom() {
-        return getAccountFrom();
-    }
 
     public BigDecimal getAmount() {
-        return getAmount();
+        return amount;
+    }
+
+    public int getAccountFrom() {
+        return accountFrom;
     }
 
     public int getAccountTo() {
-        return getAccountTo();
+        return accountTo;
     }
 
     public int getTransferStatusID() {
-        return getTransferStatusID();
-    }
-
-    public void setTransferStatusID(int transferStatusID) {
-        this.transferStatusID = transferStatusID;
-    }
-
-    public void setAccountFrom(int accountFrom) {
-        this.accountFrom = accountFrom;
-    }
-
-    public void setAccountTo(int accountTo) {
-        this.accountTo = accountTo;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+        return transferStatusID;
     }
 }
