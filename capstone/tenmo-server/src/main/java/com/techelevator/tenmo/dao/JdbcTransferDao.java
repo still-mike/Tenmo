@@ -1,5 +1,6 @@
 package com.techelevator.tenmo.dao;
 
+import Exceptions.InsufficientFundsException;
 import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.model.TransferDTO;
 import org.springframework.data.relational.core.sql.In;
@@ -36,7 +37,7 @@ public class JdbcTransferDao implements TransferDao {
     }
 
     @Override
-    public TransferDTO findByTransferID(int id) {
+    public TransferDTO findByTransferID(int id)  {
         TransferDTO transferByTransferID = null;
         String sql = "SELECT transfer_id " +
                 "FROM transfer;";
@@ -141,6 +142,12 @@ public class JdbcTransferDao implements TransferDao {
         String sql = "INSERT INTO transfer (transfer_status_id, transfer_type_id, account_from, account_to, amount) " +
                 "VALUES (2, 2, ?, ?, ?)" +
                 "RETURNING transfer_id;";
+        // trying to write exception for insufficient funds to create a transfer
+//        Integer newTransfer;
+//        try {
+//            newTransfer = jdbcTemplate.queryForObject(sql,Integer.class, status_id, account_from, account_to, amount);
+//
+//        }
         return jdbcTemplate.queryForObject(sql, Integer.class, account_from, account_to, amount);
     }
 
