@@ -44,7 +44,7 @@ public class JdbcAccountDao implements AccountDao {
     @Override
     public Account findIdByUserID(int id) {
         Account accountByUserId = null;
-        String sql = "SELECT a.user_id " +
+        String sql = "SELECT * " +
                 "FROM account a " +
                 "JOIN tenmo_user ts " +
                 "ON a.user_id = ts.user_id " +

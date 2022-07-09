@@ -22,7 +22,6 @@ public class Transfer {
         this.amount = amount;
     }
 
-
     public BigDecimal getAmount() {
         return amount;
     }
