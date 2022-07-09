@@ -19,7 +19,7 @@ public interface TransferDao {
 
     TransferDTO findByStatusId(int id);
 
-    TransferDTO findByTransferStatusDesc(String status);
+//    TransferDTO findByTransferStatusDesc(String status);
 
 //    TransferDTO findByAccountFrom(int id);
 //

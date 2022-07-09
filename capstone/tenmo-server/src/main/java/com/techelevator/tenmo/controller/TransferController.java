@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 
@@ -44,13 +45,13 @@ public class TransferController {
     public Integer createTransfer(@Valid @RequestBody Transfer transfer) throws InsufficientFundsException, TransfersToAccountException {
         accountDao.removeFromAccount(transfer.getAmount(), transfer.getAccountFrom());
         accountDao.addToAccount(transfer.getAmount(), transfer.getAccountTo());
-        if (accountDao.getBalance().compareTo(transfer.getAmount()) <= 0) {
+        if (transfer.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
             throw new InsufficientFundsException();
         }
-        else if (accountDao.getBalance(transfer.getAmount()) > accountDao.getBalance(transfer.getAccountFrom()) {
+        else if (transfer.getAmount().compareTo(accountDao.findByAccountID(transfer.getAccountFrom()).getBalance())>0) {
             throw new InsufficientFundsException();
         }
-        else if (accountDao.getByUserID(transfer.getAccountTo()) == accountDao.getByUserID(transfer.getAccountFrom())){
+        else if ((transfer.getAccountTo()) == (transfer.getAccountFrom())){
             throw new TransfersToAccountException();
         }
         return transferDao.createTransfer(transfer.getTransferStatusID(), transfer.getAccountFrom(), transfer.getAccountTo(), transfer.getAmount());
