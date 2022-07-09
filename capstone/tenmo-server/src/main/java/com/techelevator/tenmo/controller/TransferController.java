@@ -34,7 +34,7 @@ public class TransferController {
         this.userDao = userDao;
     }
 
-    @RequestMapping(path = "/username", method = RequestMethod.GET)
+    @RequestMapping(path = "/usertransfers", method = RequestMethod.GET)
     public List<TransferDTO> findAll() {
         return transferDao.findAll();
     }
