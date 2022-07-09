@@ -1,7 +1,5 @@
 package com.techelevator.tenmo.model;
 
-import org.springframework.stereotype.Component;
-
 import java.math.BigDecimal;
 
 public class Account {
@@ -10,7 +8,7 @@ public class Account {
     private int userID;
     private BigDecimal balance;
 
-    public Account(int accountID, int userID, BigDecimal balance) {
+    public Account(int accountID) {
         this.accountID = accountID;
         this.userID = userID;
         this.balance = balance;
