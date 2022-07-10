@@ -10,8 +10,6 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
-import java.math.BigDecimal;
-
 public class AccountBalanceService {
 
     private static String BASE_URL = "http://localhost:8080";
@@ -23,16 +21,12 @@ public class AccountBalanceService {
         this.authToken = authToken;
     }
 
-    public AccountBalanceService(String url) {
-        this.BASE_URL = url;
 
-    }
-
-    public AccountBalance getBalance (int accountID) {
+    public AccountBalance getBalance (String user) {
         AccountBalance accountBalance = null;
         try {
             ResponseEntity<AccountBalance> response =
-                    restTemplate.exchange(BASE_URL + "/account" + accountID,
+                    restTemplate.exchange(BASE_URL + "/account" + user,
                             HttpMethod.GET, makeAuthEntity(), AccountBalance.class);
             accountBalance = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException e) {
@@ -49,8 +43,7 @@ public class AccountBalanceService {
     }
 
 
-
-    }
+}
 
 
 
