@@ -9,9 +9,9 @@ public interface AccountDao {
 
     List<Account> findAll();
 
-    Account findByAccountID(int id);
+    Account findByAccountID(int accountID);
 
-    Account findIdByUserID(int id);
+    Account findIdByUserID(int userID);
 
     Integer getByUserID(int id);
 

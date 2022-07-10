@@ -52,7 +52,7 @@ public class AccountController {
         return accountDao.getBalance(principal.getName());
     }
 
-    @RequestMapping(path = "")
+    @RequestMapping(path = "whoami")
     public String whoAmI(Principal principal) {
         return principal.getName();
     }
