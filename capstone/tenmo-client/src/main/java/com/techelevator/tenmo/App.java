@@ -98,8 +98,20 @@ public class App {
 
 	private void viewTransferHistory() {
 		// TODO Auto-generated method stub
-		
-	}
+        System.out.println();
+        System.out.println("--------------------------------------------");
+        System.out.println("Transfer Details");
+        System.out.println("--------------------------------------------");
+            System.out.println("Id: " +
+            System.out.println("From: " +
+            System.out.println("To: " +
+            System.out.println("Type: " +
+            System.out.println("Status: " +
+            System.out.println("Amount: " +
+        }
+}
+
+
 
 	private void viewPendingRequests() {
 		// TODO Auto-generated method stub

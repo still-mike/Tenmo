@@ -13,10 +13,6 @@ public interface AccountDao {
 
     Account findIdByUserID(int userID);
 
-    Integer getByUserID(int id);
-
-    Account findBalanceIdByUserID(int id);
-
     BigDecimal getBalance(String balance);
 
     BigDecimal getAllBalance(BigDecimal balance);
@@ -25,5 +21,5 @@ public interface AccountDao {
 
     int addToAccount(BigDecimal amount, int accountID);
 
-//    List<Account> getAllBalance();
+
 }

@@ -33,17 +33,17 @@ public class JdbcTransferDao implements TransferDao {
 
     }
 
-    @Override
-    public TransferDTO findByTransferID(int id)  {
-        TransferDTO transferByTransferID = null;
-        String sql = "SELECT * " +
-                "FROM transfer;";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
-        if (results.next()) {
-            transferByTransferID = mapRowToTransfer(results);
-        }
-        return transferByTransferID;
-    }
+//    @Override
+//    public TransferDTO findByTransferID(int id)  {
+//        TransferDTO transferByTransferID = null;
+//        String sql = "SELECT * " +
+//                "FROM transfer;";
+//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+//        if (results.next()) {
+//            transferByTransferID = mapRowToTransfer(results);
+//        }
+//        return transferByTransferID;
+//    }
 
     @Override
     public List<TransferDTO> findByAccountID(int id)  {
@@ -62,104 +62,46 @@ public class JdbcTransferDao implements TransferDao {
         return transfers;
     }
 
-    @Override
-    public List<TransferDTO> findByTransferType() {
-        List<TransferDTO> transferTypeID = new ArrayList<>();
-        String sql = "SELECT * " +
-                    "FROM transfer " +
-                    "WHERE transfer_type_id = ? ";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
-        while (results.next()){
-            transferTypeID.add(mapRowToTransfer(results));
-        }
-        return transferTypeID;
-    }
-    @Override
-    public TransferDTO findByTransferType(int id) {
-        TransferDTO transfer = null;
-        String sql = "SELECT * " +
-                    "FROM transfer t " +
-                    "JOIN transfer_type ty " +
-                    "ON t.transfer_type_id = ty.transfer_type_id " +
-                    "WHERE t.transfer_type_id = ?;";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
-        if (results.next()) {
-            transfer = mapRowToTransfer(results);
-        }
-        return transfer;
-    }
-
-    @Override
-    public TransferDTO findByStatusId(int id) {
-        TransferDTO transfer = null;
-        String sql = "SELECT t.transfer_status_id " +
-                    "FROM transfer t " +
-                    "JOIN transfer_status ts " +
-                    "ON t.transfer_status_id = ts.transfer_status_id " +
-                    "WHERE t.transfer_status_id = ?;";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
-        if(results.next()) {
-            transfer = mapRowToTransfer(results);
-        }
-        return transfer;
-    }
-
 //    @Override
-//    public TransferDTO findByTransferStatusDesc(String status) {
-//        TransferDTO transfer = null;
-//        String sql = "SELECT ts.transfer_status_desc " +
-//                     "FROM transfer_status ts " +
-//                     "JOIN transfer t " +
-//                     "ON t.transfer_status_id = ts.transfer_status_id " +
-//                     "WHERE t.transfer_status_id = ?;";
-//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, status);
-//        if(results.next()) {
-//            transfer = mapRowToTransfer(results);
+//    public List<TransferDTO> findByTransferType() {
+//        List<TransferDTO> transferTypeID = new ArrayList<>();
+//        String sql = "SELECT * " +
+//                    "FROM transfer " +
+//                    "WHERE transfer_type_id = ? ";
+//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+//        while (results.next()){
+//            transferTypeID.add(mapRowToTransfer(results));
 //        }
-//        return transfer;
+//        return transferTypeID;
 //    }
-
 //    @Override
-//    public TransferDTO findByAccountFrom(int id) {
+//    public TransferDTO findByTransferType(int id) {
 //        TransferDTO transfer = null;
-//        String sql = "SELECT t.account_from " +
-//                     "FROM transfer t " +
-//                     "JOIN account a " +
-//                     "ON t.account_from = a.account_id " +
-//                     "WHERE t.account_from = ?;";
+//        String sql = "SELECT * " +
+//                    "FROM transfer t " +
+//                    "JOIN transfer_type ty " +
+//                    "ON t.transfer_type_id = ty.transfer_type_id " +
+//                    "WHERE t.transfer_type_id = ?;";
 //        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
-//        if(results.next()) {
-//            transfer = mapRowToTransfer(results);
-//        }
-//        return transfer;
-//    }
-
-
-//    @Override
-//    public TransferDTO findByAccountTo(int id) {
-//        TransferDTO transfer = null;
-//        String sql = "SELECT t.account_to " +
-//                     "FROM transfer t " +
-//                     "JOIN account a " +
-//                     "ON t.account_to = a.account_id " +
-//                     "WHERE t.account_to = ?;";
-//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
-//        if(results.next()) {
-//            transfer = mapRowToTransfer(results);
-//        }
-//        return transfer;
-//    }
-
-//    @Override
-//    public TransferDTO getTransferAmount(BigDecimal transferBalance) {
-//        TransferDTO transfer = null;
-//        String sql = "SELECT amount FROM transfer;";
-//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, transferBalance);
 //        if (results.next()) {
 //            transfer = mapRowToTransfer(results);
 //        }
 //        return transfer;
-//
+//    }
+
+//    @Override
+//    public TransferDTO findByStatusId(int id) {
+//        TransferDTO transfer = null;
+//        String sql = "SELECT t.transfer_status_id " +
+//                    "FROM transfer t " +
+//                    "JOIN transfer_status ts " +
+//                    "ON t.transfer_status_id = ts.transfer_status_id " +
+//                    "WHERE t.transfer_status_id = ?;";
+//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+//        if(results.next()) {
+//            transfer = mapRowToTransfer(results);
+//        }
+//        return transfer;
 //    }
 
     @Override
@@ -167,15 +109,8 @@ public class JdbcTransferDao implements TransferDao {
         String sql = "INSERT INTO transfer (transfer_status_id, transfer_type_id, account_from, account_to, amount) " +
                 "VALUES (2, 2, ?, ?, ?)" +
                 "RETURNING transfer_id;";
-        // trying to write exception for insufficient funds to create a transfer
-//        Integer newTransfer;
-//        try {
-//            newTransfer = jdbcTemplate.queryForObject(sql,Integer.class, status_id, account_from, account_to, amount);
-//
-//        }
         return jdbcTemplate.queryForObject(sql, Integer.class, account_from, account_to, amount);
     }
-
 
     private TransferDTO mapRowToTransfer(SqlRowSet rs) {
         TransferDTO transfer = new TransferDTO();

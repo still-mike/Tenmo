@@ -11,27 +11,10 @@ public interface TransferDao {
 
     List<TransferDTO> findAll();
 
-    TransferDTO findByTransferID(int id);
-
-//    TransferDTO findByTransferType(int id);
-
-    TransferDTO findByTransferType(int id);
-
-    TransferDTO findByStatusId(int id);
-
-//    TransferDTO findByTransferStatusDesc(String status);
-
-//    TransferDTO findByAccountFrom(int id);
-//
-//    TransferDTO findByAccountTo(int id);
-//
-//    TransferDTO getTransferAmount(BigDecimal transferBalance);
+//    TransferDTO findByTransferID(int id);
 
     Integer createTransfer(int status_id, int account_from, int account_to, BigDecimal amount);
 
-    List<TransferDTO> findByTransferType();
-
     List<TransferDTO> findByAccountID(int id);
 
-//    Transfer createTransfer();
 }

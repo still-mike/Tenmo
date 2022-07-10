@@ -57,31 +57,31 @@ public class JdbcAccountDao implements AccountDao {
         return accountByUserId;
     }
 
-    @Override
-    public Integer getByUserID(int id) {
-        Account account = null;
-        String sql = "SELECT account_id " +
-                "FROM account " +
-                "WHERE user_id = ?;";
-        Integer getAccount;
-        getAccount = jdbcTemplate.queryForObject(sql, Integer.class, id);
-        return getAccount;
-    }
+//    @Override
+//    public Integer getByUserID(int id) {
+//        Account account = null;
+//        String sql = "SELECT account_id " +
+//                "FROM account " +
+//                "WHERE user_id = ?;";
+//        Integer getAccount;
+//        getAccount = jdbcTemplate.queryForObject(sql, Integer.class, id);
+//        return getAccount;
+//    }
 
-    @Override
-    public Account findBalanceIdByUserID(int id) {
-        Account balanceByUserId = null;
-        String sql = "SELECT a.balance " +
-                "FROM account a " +
-                "JOIN tenmo_user ts " +
-                "ON a.user_id = ts.user_id " +
-                "WHERE a.user_id = ? ";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
-        if (results.next()) {
-            balanceByUserId = mapRowToAccount(results);
-        }
-        return balanceByUserId;
-    }
+//    @Override
+//    public Account findBalanceIdByUserID(int id) {
+//        Account balanceByUserId = null;
+//        String sql = "SELECT a.balance " +
+//                "FROM account a " +
+//                "JOIN tenmo_user ts " +
+//                "ON a.user_id = ts.user_id " +
+//                "WHERE a.user_id = ? ";
+//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+//        if (results.next()) {
+//            balanceByUserId = mapRowToAccount(results);
+//        }
+//        return balanceByUserId;
+//    }
 
     public BigDecimal getBalance(String user) {  //type Account? BigDecimal?
         BigDecimal accountBalance;
@@ -122,12 +122,6 @@ public class JdbcAccountDao implements AccountDao {
                      "WHERE account_id = ?;";
         return jdbcTemplate.update(sql, amount, accountID);
     }
-//
-//    @Override
-//    public List<Account> getAllBalance() {
-//        return null;
-//    }
-
 
     private Account mapRowToAccount(SqlRowSet rs) {
         Account account = new Account();
