@@ -92,23 +92,23 @@ public class App {
 
 	private void viewCurrentBalance() {
 		// TODO Auto-generated method stub
-        AccountBalance accountBalance = accountBalanceService.getBalance(String.valueOf(currentUser));
-        System.out.println("Your current account balance is: " + "$" + accountBalance.getBalance());
+        BigDecimal accountBalance = accountBalanceService.getBalance(currentUser);
+        System.out.println("Your current account balance is: " + "$" + accountBalance);
 	}
 
 	private void viewTransferHistory() {
-		// TODO Auto-generated method stub
-        System.out.println();
-        System.out.println("--------------------------------------------");
-        System.out.println("Transfer Details");
-        System.out.println("--------------------------------------------");
-            System.out.println("Id: " +
-            System.out.println("From: " +
-            System.out.println("To: " +
-            System.out.println("Type: " +
-            System.out.println("Status: " +
-            System.out.println("Amount: " +
-        }
+//		// TODO Auto-generated method stub
+//        System.out.println();
+//        System.out.println("--------------------------------------------");
+//        System.out.println("Transfer Details");
+//        System.out.println("--------------------------------------------");
+//            System.out.println("Id: " +
+//            System.out.println("From: " +
+//            System.out.println("To: " +
+//            System.out.println("Type: " +
+//            System.out.println("Status: " +
+//            System.out.println("Amount: " +
+//        }
 }
 
 

@@ -37,10 +37,10 @@ public class AccountController {
         return accountDao.findByAccountID(id);
     }
 
-    @RequestMapping(path = "/balance", method = RequestMethod.GET)
-    public BigDecimal getAllBalance(@PathVariable BigDecimal balance){
-        return accountDao.getAllBalance(balance);
-    }
+//    @RequestMapping(path = "/balance", method = RequestMethod.GET)
+//    public BigDecimal getAllBalance(@PathVariable BigDecimal balance){
+//        return accountDao.getAllBalance(balance);
+//    }
 
     @RequestMapping(path = "/user/{id}", method = RequestMethod.GET)
     public Account getByUserId(@PathVariable int id) {
